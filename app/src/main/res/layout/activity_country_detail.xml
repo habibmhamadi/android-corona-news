@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingBottom="?attr/actionBarSize"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:elevation="1dp"
+        app:title=" "
+        android:id="@+id/toolbarCountryDetail"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_arrow_back"
+            android:background="@android:color/transparent"
+            android:layout_marginRight="6dp"
+            android:onClick="goBack"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Corona News"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/baloo2_regular"
+            android:layout_height="wrap_content"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:elevation="2dp"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="32dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="12dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            android:paddingBottom="12dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imgCountry"
+                            android:layout_marginRight="8dp"
+                            android:adjustViewBounds="true"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1.4"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content">
+
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:textSize="18dp"
+                                    android:textColor="@color/colorPrimary"
+                                    android:text="Cases: 0"
+                                    android:id="@+id/txtCasesCountry"
+                                    android:fontFamily="@font/baloo2_regular"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:textSize="18dp"
+                                    android:text="Recovered: 0"
+                                    android:id="@+id/txtRecoverdCountry"
+                                    android:fontFamily="@font/baloo2_regular"
+                                    android:textColor="@color/colorGreen"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:textColor="@color/colorRed"
+                                    android:textSize="18dp"
+                                    android:id="@+id/txtDeathsCountry"
+                                    android:fontFamily="@font/baloo2_regular"
+                                    android:text="Deaths: 0"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:fontFamily="@font/baloo2_regular"
+                        android:id="@+id/txtCountry"
+                        android:paddingBottom="10dp"
+                        android:text=""
+                        android:textColor="@color/colorGrey1"
+                        android:textSize="26dp"/>
+
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:paddingLeft="80dp"
+                android:paddingRight="80dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/colorGrey2"
+                    android:id="@+id/txtDateCountry"
+                    android:fontFamily="@font/baloo2_regular"
+                    android:text=""/>
+
+                <lecho.lib.hellocharts.view.PieChartView
+                    android:id="@+id/pieChartCountry"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+</LinearLayout>

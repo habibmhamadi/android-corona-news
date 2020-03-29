@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="2dp"
+    android:id="@+id/card_country"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:elevation="2dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="32dp"
+                android:id="@+id/txtNo"
+                android:fontFamily="@font/baloo2_regular"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textSize="15dp"
+                android:layout_marginRight="4dp"
+                android:text="1"/>
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="14dp"
+                android:id="@+id/imgCountryFlag"
+                android:scaleType="centerCrop"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorGrey6"
+                android:adjustViewBounds="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Afghanistan"
+                android:fontFamily="@font/baloo2_regular"
+                android:textSize="17dp"
+                android:id="@+id/txtCountryName"
+                android:layout_marginRight="6dp"
+                android:textColor="@color/colorBlack"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:paddingRight="2dp"
+                android:paddingLeft="2dp"
+                android:textSize="12dp"
+                android:fontFamily="@font/baloo2_regular"
+                android:id="@+id/txtNewCases"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/text_no_background"
+                android:text="34200+"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtTotalCases"
+                    android:fontFamily="@font/baloo2_regular"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/colorGrey1"
+                    android:textSize="17dp"
+                    android:text="1233"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

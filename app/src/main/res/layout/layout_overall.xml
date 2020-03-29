@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingBottom="?attr/actionBarSize"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:elevation="1dp"
+        app:title=" "
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Corona News"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/baloo2_regular"
+                android:layout_height="wrap_content"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:id="@+id/btnShowInfo"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginRight="12dp"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_info_outline"/>
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+   <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+       android:layout_width="match_parent"
+       android:id="@+id/refresh_world"
+       android:layout_height="match_parent">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+
+           <androidx.cardview.widget.CardView
+               android:elevation="2dp"
+               android:layout_width="match_parent"
+               android:layout_marginBottom="2dp"
+               android:layout_height="wrap_content">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:padding="16dp"
+                   android:orientation="horizontal">
+
+                   <LinearLayout
+                       android:layout_width="0dp"
+                       android:layout_weight="1"
+                       android:orientation="vertical"
+                       android:padding="20dp"
+                       android:layout_height="wrap_content">
+
+                       <ImageView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:src="@drawable/earth"
+                           android:adjustViewBounds="true"/>
+
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:gravity="center_horizontal"
+                           android:fontFamily="@font/baloo2_regular"
+                           android:text="World"
+                           android:textColor="@color/colorGrey1"
+                           android:textSize="26dp"/>
+
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:layout_width="0dp"
+                       android:layout_weight="1.1"
+                       android:orientation="vertical"
+                       android:layout_gravity="center_vertical"
+                       android:layout_marginBottom="20dp"
+                       android:gravity="center_horizontal"
+                       android:layout_height="wrap_content">
+
+
+
+                       <LinearLayout
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:orientation="vertical">
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:textSize="18dp"
+                               android:textColor="@color/colorPrimary"
+                               android:text="Cases: 0"
+                               android:id="@+id/txtCasesWorld"
+                               android:fontFamily="@font/baloo2_regular"
+                               android:layout_height="wrap_content"/>
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:textSize="18dp"
+                               android:text="Recovered: 0"
+                               android:id="@+id/txtRecoverdWorld"
+                               android:fontFamily="@font/baloo2_regular"
+                               android:textColor="@color/colorGreen"
+                               android:layout_height="wrap_content"/>
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:textColor="@color/colorRed"
+                               android:textSize="18dp"
+                               android:id="@+id/txtDeathsWorld"
+                               android:fontFamily="@font/baloo2_regular"
+                               android:text="Deaths: 0"
+                               android:layout_height="wrap_content"/>
+
+                       </LinearLayout>
+
+
+                   </LinearLayout>
+
+               </LinearLayout>
+
+           </androidx.cardview.widget.CardView>
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:paddingLeft="80dp"
+               android:paddingRight="80dp"
+               android:layout_height="match_parent">
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:gravity="center_horizontal"
+                   android:layout_marginTop="6dp"
+                   android:textColor="@color/colorGrey2"
+                   android:id="@+id/txtDateWorld"
+                   android:fontFamily="@font/baloo2_regular"
+                   android:text=""/>
+
+               <lecho.lib.hellocharts.view.PieChartView
+                   android:id="@+id/pieChartWorld"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"/>
+
+           </RelativeLayout>
+
+
+       </LinearLayout>
+
+   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+</LinearLayout>
