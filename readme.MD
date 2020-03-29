@@ -1,10 +1,8 @@
 <h2 style="font-family:calibri;">Android Corona News</h2>
 
 <div style="display:flex; flex-direction:row; justify-content:center; padding:4% 10% 4% 10%;">
-<img src="https://raw.githubusercontent.com/habibmhamadi/android-corona-news/master/app/ScreenShots/m2.jpg" alt="Home Screen" />
-<img src="https://raw.githubusercontent.com/habibmhamadi/android-corona-news/master/app/ScreenShots/m3.jpg" alt="Countries List" style="padding:0 5%;"  />
-<img src="https://raw.githubusercontent.com/habibmhamadi/android-corona-news/master/app/ScreenShots/m4.jpg" alt="News Screen" />
-<img src="https://raw.githubusercontent.com/habibmhamadi/android-corona-news/master/app/ScreenShots/m5.jpg" alt="Country Detail" style="padding-left:5%;"  />
+<img src="https://raw.githubusercontent.com/habibmhamadi/android-corona-news/master/bg.jpg" alt="Screens" />
+
 </div>
 
 <h3 style="font-family:calibri;">Featers</h3>
