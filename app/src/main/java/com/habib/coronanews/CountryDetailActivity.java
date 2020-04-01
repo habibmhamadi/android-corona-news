@@ -58,6 +58,14 @@ public class CountryDetailActivity extends AppCompatActivity {
     private void init(){
         toolbar = findViewById(R.id.toolbarCountryDetail);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         pieChartView = findViewById(R.id.pieChartCountry);
         txtCases = findViewById(R.id.txtCasesCountry);
         txtDeaths = findViewById(R.id.txtDeathsCountry);
@@ -86,12 +94,11 @@ public class CountryDetailActivity extends AppCompatActivity {
 
         DecimalFormat decimalFormat = new DecimalFormat("##.00");
 
-        list.add(new SliceValue(total*mCases,getResources().getColor(R.color.colorPrimary)).setLabel(decimalFormat.format(x)));
-        list.add(new SliceValue(total*mRecovered,getResources().getColor(R.color.colorGreen)).setLabel(decimalFormat.format(y)));
-        list.add(new SliceValue(total*mDeaths,getResources().getColor(R.color.colorRed)).setLabel(decimalFormat.format(z)));
+        list.add(new SliceValue(total*mCases,getResources().getColor(R.color.colorPrimary)).setLabel(decimalFormat.format(x)+"% active"));
+        list.add(new SliceValue(total*mRecovered,getResources().getColor(R.color.colorGreen)).setLabel(decimalFormat.format(y)+"% recovered"));
+        list.add(new SliceValue(total*mDeaths,getResources().getColor(R.color.colorRed)).setLabel(decimalFormat.format(z)+"% deaths"));
         PieChartData data = new PieChartData(list);
         data.setHasLabels(true).setCenterText1FontSize(14);
-        data.setHasCenterCircle(true).setCenterText1("COVID 19").setCenterText1Color(getResources().getColor(R.color.colorGrey1)).setCenterText1FontSize(15);
         pieChartView.setPieChartData(data);
     }
 

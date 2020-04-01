@@ -28,7 +28,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class NewsList extends Fragment {
     private View view;
@@ -37,6 +41,7 @@ public class NewsList extends Fragment {
     private RecyclerView recyclerView;
     private NewsRecyclerAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
+    private Calendar calendar;
 
     public NewsList(){}
 
@@ -56,6 +61,7 @@ public class NewsList extends Fragment {
         refreshLayout = view.findViewById(R.id.refresh_news);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        calendar = Calendar.getInstance();
         getCountries();
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -79,7 +85,20 @@ public class NewsList extends Fragment {
                         News news = new News();
                         news.setTitle(article.getString("title"));
                         news.setDesc(article.getString("description"));
-                        news.setDate(article.getString("publishedAt").substring(0,10));
+                        String date = article.getString("publishedAt").substring(0,10);
+                        String time = article.getString("publishedAt").substring(10,16);
+                        time = time.replaceAll("[A-Z]+","");
+                        String DATE_FORMAT = "yyyy-MM-dd hh:mm";
+                        String dateInString = date+" "+time+"";
+                        SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
+                        Date d = formatter.parse(dateInString);
+                        calendar.setTime(d);
+                        calendar.add(Calendar.MINUTE,270);
+                        String h = calendar.get(Calendar.HOUR)+"";
+                        String m = calendar.get(Calendar.MINUTE)+"";
+                        if (Integer.parseInt(h)<10) h = "0"+h;
+                        if (Integer.parseInt(m)<10) m = "0"+m;
+                        news.setDate(date+"   "+h+":"+m);
                         news.setImage(article.getString("urlToImage"));
                         list.add(news);
                     }
@@ -90,6 +109,8 @@ public class NewsList extends Fragment {
             } catch (JSONException e) {
                 Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(true);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
             refreshLayout.setRefreshing(false);
         },e->{

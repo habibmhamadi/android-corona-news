@@ -4,21 +4,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:id="@+id/frameHomeContainer"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="false"
-        android:layout_alignParentBottom="true"
         android:clickable="false"
         android:focusable="false">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:id="@+id/frameHomeContainer"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_bar"
@@ -28,8 +28,6 @@
             android:background="@android:color/transparent"
             android:clickable="false"
             android:theme="@style/AppTheme.Toolbar"
-            app:fabAlignmentMode="center"
-            app:fabCradleRoundedCornerRadius="16dp"
             app:contentInsetStart="0dp"
             app:contentInsetStartWithNavigation="0dp">
 

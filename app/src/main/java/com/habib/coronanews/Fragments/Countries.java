@@ -34,6 +34,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,7 +83,8 @@ public class Countries extends Fragment {
         StringRequest request = new StringRequest(Request.Method.GET, Constant.URL,r->{
             try {
                 JSONObject object = new JSONObject(r);
-                if (object.getInt("results")==206 || object.getInt("results")==200){
+                JSONArray errors = object.getJSONArray("errors");
+                if (errors.length()==0){
                     JSONArray array = object.getJSONArray("response");
                     for (int i=0;i<array.length();i++){
                         JSONObject country = array.getJSONObject(i);
@@ -101,6 +104,7 @@ public class Countries extends Fragment {
                             String flagUrl = "https://www.countryflags.io/"+code+"/shiny/64.png";
 
                             Country c = new Country();
+                            if (name.contains("Bosnia")) name = "Bosnia-&-Herz...";
                             c.setName(name);
                             c.setNewCases(newCases);
                             c.setActive(cases.getInt("active"));
@@ -113,10 +117,12 @@ public class Countries extends Fragment {
                             c.setTotalCases(cases.getInt("total"));
                             list.add(c);
                         }
+                        Collections.sort(list,new OrderByCases());
                     }
-                    adapter = new CountriesRecyclerAdapter(getContext(),list);
-                    recyclerView.setAdapter(adapter);
+
                 }
+                adapter = new CountriesRecyclerAdapter(getContext(),list);
+                recyclerView.setAdapter(adapter);
             } catch (JSONException e) {
                 Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
             }
@@ -157,6 +163,22 @@ public class Countries extends Fragment {
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+    class OrderByCases implements Comparator<Country>{
+
+        @Override
+        public int compare(Country o1, Country o2) {
+            int result = o1.getTotalCases()-o2.getTotalCases();
+            if (result==0){
+                result = o1.getActive()-o2.getActive();
+                result*=-1;
+                return result;
+            }
+            result *= -1;
+            return result;
+        }
     }
 
 }

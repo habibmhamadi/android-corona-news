@@ -21,18 +21,19 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="32dp"
+                android:layout_width="24dp"
                 android:id="@+id/txtNo"
                 android:fontFamily="@font/baloo2_regular"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorBlack"
-                android:textSize="15dp"
+                android:textSize="13dp"
+                android:textStyle="bold"
                 android:layout_marginRight="4dp"
                 android:text="1"/>
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="14dp"
+                android:layout_width="17dp"
+                android:layout_height="12dp"
                 android:id="@+id/imgCountryFlag"
                 android:scaleType="centerCrop"
                 android:layout_marginRight="10dp"
@@ -51,9 +52,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:paddingRight="2dp"
+                android:textSize="10dp"
                 android:paddingLeft="2dp"
-                android:textSize="12dp"
+                android:paddingRight="2dp"
                 android:fontFamily="@font/baloo2_regular"
                 android:id="@+id/txtNewCases"
                 android:gravity="center_horizontal"

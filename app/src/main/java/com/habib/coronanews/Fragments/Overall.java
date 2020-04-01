@@ -2,6 +2,7 @@ package com.habib.coronanews.Fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,10 +31,16 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
@@ -43,11 +50,14 @@ public class Overall extends Fragment {
     private View view;
     private PieChartView pieChartView;
     private SwipeRefreshLayout refreshLayout;
-    private TextView txtDeaths,txtRecovered,txtCases,txtDate;
+    private TextView txtDeaths,txtRecovered,txtCases,txtDate,txtLastUpdate;
     private ImageButton btnShowInfo;
     int mCases = 0,mDeaths=0,mRecovered=0;
     String date = "";
     private List<SliceValue> list;
+    private  NumberFormat numberFormat = NumberFormat.getInstance();
+    private Calendar calendar;
+
     public  Overall (){}
 
     @Nullable
@@ -66,6 +76,9 @@ public class Overall extends Fragment {
         txtDeaths = view.findViewById(R.id.txtDeathsWorld);
         txtRecovered = view.findViewById(R.id.txtRecoverdWorld);
         txtDate = view.findViewById(R.id.txtDateWorld);
+        txtLastUpdate = view.findViewById(R.id.txtLastUpdateOverall);
+        numberFormat.setGroupingUsed(true);
+        calendar = Calendar.getInstance();
         getData();
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -101,31 +114,42 @@ public class Overall extends Fragment {
         StringRequest request = new StringRequest(Request.Method.GET, Constant.URL, r->{
             try {
                 JSONObject object = new JSONObject(r);
-
-                if (object.getInt("results")==206 || object.getInt("results")==200){
+                JSONArray errors = object.getJSONArray("errors");
+                if (errors.length()==0){
                     JSONArray array = object.getJSONArray("response");
                     for (int i=0;i<array.length();i++){
                         JSONObject country = array.getJSONObject(i);
                         if (country.getString("country").equals("All")){
                             JSONObject cases = country.getJSONObject("cases");
                             JSONObject deaths = country.getJSONObject("deaths");
+                            String time = country.getString("time").substring(10,16);
+                            time = time.replaceAll("[A-Z]+","");
                             date = country.getString("day");
-
+                            String DATE_FORMAT = "yyyy-MM-dd hh:mm";
+                            String dateInString = date+" "+time+"";
+                            SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
+                            Date d = formatter.parse(dateInString);
+                            calendar.setTime(d);
+                            calendar.add(Calendar.MINUTE,270);
                             mCases+=cases.getInt("total");
                             mDeaths+=deaths.getInt("total");
                             mRecovered+=cases.getInt("recovered");
+                            String h = calendar.get(Calendar.HOUR)+"";
+                            String m = calendar.get(Calendar.MINUTE)+"";
+                            if (Integer.parseInt(h)<10) h = "0"+h;
+                            if (Integer.parseInt(m)<10) m = "0"+m;
+                            txtLastUpdate.setText("Last update: "+h+":"+m);
+
                         }
 
                     }
 
 
-                    NumberFormat numberFormat = NumberFormat.getInstance();
-                    numberFormat.setGroupingUsed(true);
-
                     txtRecovered.setText("Recovered: "+numberFormat.format(mRecovered));
                     txtDeaths.setText("Deaths: "+numberFormat.format(mDeaths));
                     txtCases.setText("Cases: "+numberFormat.format(mCases));
-                    txtDate.setText(date);
+
+                    txtDate.setText("Update every 15 minutes");
                     float total = mCases+mDeaths+mRecovered;
                     float x = (mCases*100)/total;
                     float y = (mRecovered*100)/total;
@@ -133,16 +157,17 @@ public class Overall extends Fragment {
 
                     DecimalFormat decimalFormat = new DecimalFormat("##.00");
 
-                    list.add(new SliceValue(total*mCases,getContext().getResources().getColor(R.color.colorPrimary)).setLabel(decimalFormat.format(x)));
-                    list.add(new SliceValue(total*mRecovered,getContext().getResources().getColor(R.color.colorGreen)).setLabel(decimalFormat.format(y)));
-                    list.add(new SliceValue(total*mDeaths,getContext().getResources().getColor(R.color.colorRed)).setLabel(decimalFormat.format(z)));
+                    list.add(new SliceValue(total*mCases,getContext().getResources().getColor(R.color.colorPrimary)).setLabel(decimalFormat.format(x)+"% active"));
+                    list.add(new SliceValue(total*mRecovered,getContext().getResources().getColor(R.color.colorGreen)).setLabel(decimalFormat.format(y)+"% recovered"));
+                    list.add(new SliceValue(total*mDeaths,getContext().getResources().getColor(R.color.colorRed)).setLabel(decimalFormat.format(z)+"% deaths"));
                     PieChartData data = new PieChartData(list);
                     data.setHasLabels(true).setCenterText1FontSize(14);
-                    data.setHasCenterCircle(true).setCenterText1("COVID 19").setCenterText1Color(getContext().getResources().getColor(R.color.colorGrey1)).setCenterText1FontSize(15);
                     pieChartView.setPieChartData(data);
                 }
             } catch (JSONException e) {
                 Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
             refreshLayout.setRefreshing(false);
         },e->{

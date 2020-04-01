@@ -18,7 +18,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Corona News"
+                android:text="Global State"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_centerVertical="true"
@@ -69,13 +69,17 @@
                        android:layout_width="0dp"
                        android:layout_weight="1"
                        android:orientation="vertical"
-                       android:padding="20dp"
+                       android:paddingLeft="12dp"
+                       android:paddingRight="6dp"
+                       android:paddingTop="12dp"
                        android:layout_height="wrap_content">
 
                        <ImageView
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
                            android:src="@drawable/earth"
+                           android:paddingLeft="10dp"
+                           android:paddingRight="10dp"
                            android:adjustViewBounds="true"/>
 
                        <TextView
@@ -91,23 +95,23 @@
 
                    <LinearLayout
                        android:layout_width="0dp"
-                       android:layout_weight="1.1"
+                       android:layout_weight="1.2"
                        android:orientation="vertical"
                        android:layout_gravity="center_vertical"
-                       android:layout_marginBottom="20dp"
+                       android:layout_marginBottom="6dp"
                        android:gravity="center_horizontal"
                        android:layout_height="wrap_content">
-
 
 
                        <LinearLayout
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
+                           android:layout_marginTop="4dp"
                            android:orientation="vertical">
 
                            <TextView
                                android:layout_width="wrap_content"
-                               android:textSize="18dp"
+                               android:textSize="17dp"
                                android:textColor="@color/colorPrimary"
                                android:text="Cases: 0"
                                android:id="@+id/txtCasesWorld"
@@ -116,7 +120,7 @@
 
                            <TextView
                                android:layout_width="wrap_content"
-                               android:textSize="18dp"
+                               android:textSize="17dp"
                                android:text="Recovered: 0"
                                android:id="@+id/txtRecoverdWorld"
                                android:fontFamily="@font/baloo2_regular"
@@ -126,16 +130,26 @@
                            <TextView
                                android:layout_width="wrap_content"
                                android:textColor="@color/colorRed"
-                               android:textSize="18dp"
+                               android:textSize="17dp"
                                android:id="@+id/txtDeathsWorld"
                                android:fontFamily="@font/baloo2_regular"
                                android:text="Deaths: 0"
                                android:layout_height="wrap_content"/>
 
+
+                           <TextView
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_marginTop="16dp"
+                               android:textSize="13dp"
+                               android:id="@+id/txtLastUpdateOverall"
+                               android:text="Last update: "/>
+
                        </LinearLayout>
 
 
                    </LinearLayout>
+
 
                </LinearLayout>
 
@@ -143,15 +157,15 @@
 
            <RelativeLayout
                android:layout_width="match_parent"
-               android:paddingLeft="80dp"
-               android:paddingRight="80dp"
+               android:paddingLeft="40dp"
+               android:paddingRight="40dp"
                android:layout_height="match_parent">
 
                <TextView
-                   android:layout_width="match_parent"
+                   android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:gravity="center_horizontal"
-                   android:layout_marginTop="6dp"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginTop="16dp"
                    android:textColor="@color/colorGrey2"
                    android:id="@+id/txtDateWorld"
                    android:fontFamily="@font/baloo2_regular"
@@ -159,10 +173,15 @@
 
                <lecho.lib.hellocharts.view.PieChartView
                    android:id="@+id/pieChartWorld"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"/>
+                   android:layout_centerHorizontal="true"
+                   android:layout_width="200dp"
+                   android:layout_marginTop="12dp"
+                   android:layout_below="@id/txtDateWorld"
+                   android:layout_height="200dp"/>
+
 
            </RelativeLayout>
+
 
 
        </LinearLayout>

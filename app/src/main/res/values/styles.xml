@@ -8,9 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:editTextColor">@android:color/white</item>
         <item name="android:textColorHint">@android:color/white</item>
+        <item name="colorControlNormal">@color/colorWhite</item>
         <item name="android:fontFamily">@font/baloo2_regular</item>
 
     </style>
+
+
 
     <style name="AppTheme.Toolbar" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->

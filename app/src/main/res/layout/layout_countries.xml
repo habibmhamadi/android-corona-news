@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
-            android:text="Corona News"
+            android:text="List of Countries"
             android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@color/colorWhite"
@@ -25,7 +25,7 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/refresh_countries">
 
         <androidx.recyclerview.widget.RecyclerView

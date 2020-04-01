@@ -19,6 +19,7 @@ import com.habib.coronanews.Models.Country;
 import com.habib.coronanews.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -27,11 +28,12 @@ public class CountriesRecyclerAdapter extends RecyclerView.Adapter<CountriesRecy
     private Context context;
     private ArrayList<Country> list;
     private ArrayList<Country> listAll;
+    private NumberFormat numberFormat = NumberFormat.getInstance();
 
     public CountriesRecyclerAdapter(Context context, ArrayList<Country> list){
         this.context=context;
         this.list =list;
-
+        numberFormat.setGroupingUsed(true);
         this.listAll = new ArrayList<>(list);
     }
 
@@ -47,14 +49,14 @@ public class CountriesRecyclerAdapter extends RecyclerView.Adapter<CountriesRecy
         Country country = list.get(position);
         holder.txtNo.setText((position+1)+"");
         holder.txtCountryName.setText(country.getName());
-        holder.txtNewCases.setText(country.getNewCases()+"");
-        holder.txtTotalCases.setText(country.getTotalCases()+"");
+        holder.txtTotalCases.setText(numberFormat.format(country.getTotalCases())+"");
         Picasso.get().load(country.getFlag()).into(holder.imgCountryFlag);
         if (country.getNewCases().equals("0")){
-            holder.txtNewCases.setBackgroundColor(context.getResources().getColor(R.color.colorGrey4));
+            holder.txtNewCases.setVisibility(View.GONE);
         }
         else {
-            holder.txtNewCases.setBackgroundColor(context.getResources().getColor(R.color.colorOrange));
+            holder.txtNewCases.setVisibility(View.VISIBLE);
+            holder.txtNewCases.setText(country.getNewCases()+" new");
         }
         holder.cardView.setOnClickListener(v->{
             Intent i = new Intent(((HomeActivity)context), CountryDetailActivity.class);
