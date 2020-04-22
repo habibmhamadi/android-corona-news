@@ -16,7 +16,6 @@ public class HomeActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private BottomNavigationView bottomNavigationView;
     private Fragment overall,countries,news;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

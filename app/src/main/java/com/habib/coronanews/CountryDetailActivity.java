@@ -36,7 +36,7 @@ public class CountryDetailActivity extends AppCompatActivity {
     private PieChartView pieChartView;
     private TextView txtDeaths,txtRecovered,txtCases,txtDate,txtCountry;
     private ImageView imgCountry;
-    int mCases = 0,mDeaths=0,mRecovered=0;
+    int mCases = 0,mDeaths=0,mRecovered=0,mActive=0;
     private Toolbar toolbar;
     String date = "";
     private List<SliceValue> list;
@@ -52,6 +52,7 @@ public class CountryDetailActivity extends AppCompatActivity {
         mCases = getIntent().getIntExtra("cases",0);
         mDeaths = getIntent().getIntExtra("deaths",0);
         mRecovered = getIntent().getIntExtra("recovered",0);
+        mActive = getIntent().getIntExtra("active",0);
         init();
     }
 
@@ -87,14 +88,14 @@ public class CountryDetailActivity extends AppCompatActivity {
         txtCountry.setText(countryName);
         txtDate.setText(date);
         Picasso.get().load(countryImg).into(imgCountry);
-        float total = mCases+mDeaths+mRecovered;
-        float x = (mCases*100)/total;
+        float total = mCases;
+        float x = (mActive*100)/total;
         float y = (mRecovered*100)/total;
         float z = (mDeaths*100)/total;
 
         DecimalFormat decimalFormat = new DecimalFormat("##.00");
 
-        list.add(new SliceValue(total*mCases,getResources().getColor(R.color.colorPrimary)).setLabel(decimalFormat.format(x)+"% active"));
+        list.add(new SliceValue(total*mActive,getResources().getColor(R.color.colorPrimary)).setLabel(decimalFormat.format(x)+"% active"));
         list.add(new SliceValue(total*mRecovered,getResources().getColor(R.color.colorGreen)).setLabel(decimalFormat.format(y)+"% recovered"));
         list.add(new SliceValue(total*mDeaths,getResources().getColor(R.color.colorRed)).setLabel(decimalFormat.format(z)+"% deaths"));
         PieChartData data = new PieChartData(list);

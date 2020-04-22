@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -46,6 +47,7 @@ public class Countries extends Fragment {
     private Toolbar toolbar;
     private CountriesRecyclerAdapter adapter;
     private ArrayList<Country> list ;
+    private boolean reCreate = false;
 
     public  Countries (){}
 
@@ -88,7 +90,12 @@ public class Countries extends Fragment {
                     JSONArray array = object.getJSONArray("response");
                     for (int i=0;i<array.length();i++){
                         JSONObject country = array.getJSONObject(i);
-                        if (!country.getString("country").equals("All")){
+                        if (!country.getString("country").equals("All")
+                            && !country.getString("country").equals("Europe")
+                                && !country.getString("country").equals("Asia")
+                                && !country.getString("country").equals("Africa")
+                                && !country.getString("country").equals("North-America")
+                                && !country.getString("country").equals("South-America")){
                             JSONObject cases = country.getJSONObject("cases");
                             JSONObject deaths = country.getJSONObject("deaths");
                             String newCases = "0",newDeaths="";
@@ -127,9 +134,11 @@ public class Countries extends Fragment {
                 Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
             }
             refreshLayout.setRefreshing(false);
+            reCreate = false;
         },e->{
             Toast.makeText(getContext(), "Connection Error", Toast.LENGTH_SHORT).show();
             refreshLayout.setRefreshing(false);
+            reCreate = true;
         }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -181,4 +190,12 @@ public class Countries extends Fragment {
         }
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden && reCreate){
+            FragmentManager manager = ((HomeActivity)getContext()).getSupportFragmentManager();
+            manager.beginTransaction().remove(manager.findFragmentByTag(Countries.class.getSimpleName())).commit();
+        }
+    }
 }

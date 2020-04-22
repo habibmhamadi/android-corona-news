@@ -66,6 +66,7 @@ public class CountriesRecyclerAdapter extends RecyclerView.Adapter<CountriesRecy
             i.putExtra("cases",country.getTotalCases());
             i.putExtra("recovered",country.getRecovered());
             i.putExtra("deaths",country.getTotalDeaths());
+            i.putExtra("active",country.getActive());
             ((HomeActivity)context).startActivity(i);
         });
     }

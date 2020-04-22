@@ -52,7 +52,7 @@ public class Overall extends Fragment {
     private SwipeRefreshLayout refreshLayout;
     private TextView txtDeaths,txtRecovered,txtCases,txtDate,txtLastUpdate;
     private ImageButton btnShowInfo;
-    int mCases = 0,mDeaths=0,mRecovered=0;
+    int mCases = 0,mDeaths=0,mRecovered=0,mActive=0;
     String date = "";
     private List<SliceValue> list;
     private  NumberFormat numberFormat = NumberFormat.getInstance();
@@ -134,6 +134,7 @@ public class Overall extends Fragment {
                             mCases+=cases.getInt("total");
                             mDeaths+=deaths.getInt("total");
                             mRecovered+=cases.getInt("recovered");
+                            mActive+=cases.getInt("active");
                             String h = calendar.get(Calendar.HOUR)+"";
                             String m = calendar.get(Calendar.MINUTE)+"";
                             if (Integer.parseInt(h)<10) h = "0"+h;
@@ -150,14 +151,14 @@ public class Overall extends Fragment {
                     txtCases.setText("Cases: "+numberFormat.format(mCases));
 
                     txtDate.setText("Update every 15 minutes");
-                    float total = mCases+mDeaths+mRecovered;
-                    float x = (mCases*100)/total;
+                    float total = mCases;
+                    float x = (mActive*100)/total;
                     float y = (mRecovered*100)/total;
                     float z = (mDeaths*100)/total;
 
                     DecimalFormat decimalFormat = new DecimalFormat("##.00");
 
-                    list.add(new SliceValue(total*mCases,getContext().getResources().getColor(R.color.colorPrimary)).setLabel(decimalFormat.format(x)+"% active"));
+                    list.add(new SliceValue(total*mActive,getContext().getResources().getColor(R.color.colorPrimary)).setLabel(decimalFormat.format(x)+"% active"));
                     list.add(new SliceValue(total*mRecovered,getContext().getResources().getColor(R.color.colorGreen)).setLabel(decimalFormat.format(y)+"% recovered"));
                     list.add(new SliceValue(total*mDeaths,getContext().getResources().getColor(R.color.colorRed)).setLabel(decimalFormat.format(z)+"% deaths"));
                     PieChartData data = new PieChartData(list);
